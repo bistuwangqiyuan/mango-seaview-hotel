@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>预订成功 - 芒果海景酒店 | Booking Confirmed - Mango Sea View Hotel</title>
+  <meta name="description" content="您的预订已确认 - 芒果海景酒店">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🥭%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .success-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--content-padding);
+      background: var(--color-gray-100);
+    }
+    .success-card {
+      max-width: 520px;
+      width: 100%;
+      background: var(--color-white);
+      border-radius: var(--radius-xl);
+      padding: 48px 40px;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      animation: cardIn 0.6s var(--ease-apple);
+    }
+    @keyframes cardIn { from { opacity: 0; transform: translateY(30px); } }
+    .success-icon {
+      width: 80px; height: 80px;
+      margin: 0 auto 24px;
+      background: var(--color-success);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: successPop 0.5s 0.3s var(--ease-bounce) both;
+    }
+    @keyframes successPop { from { transform: scale(0); } }
+    .success-icon svg {
+      width: 40px; height: 40px;
+      stroke: white; stroke-width: 3;
+      fill: none; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .success-icon .check-path {
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+      animation: drawCheck 0.5s 0.6s forwards;
+    }
+    @keyframes drawCheck { to { stroke-dashoffset: 0; } }
+    .success-card h1 {
+      font-size: 1.75rem;
+      margin-bottom: 8px;
+      color: var(--color-dark);
+    }
+    .success-card .subtitle {
+      color: var(--color-gray-600);
+      margin-bottom: 32px;
+      font-size: var(--font-body);
+    }
+    .success-booking-no {
+      background: var(--color-gray-100);
+      padding: 16px 24px;
+      border-radius: var(--radius-md);
+      margin-bottom: 32px;
+    }
+    .success-booking-no .label {
+      font-size: var(--font-small);
+      color: var(--color-gray-600);
+      margin-bottom: 4px;
+    }
+    .success-booking-no .value {
+      font-size: 1.5rem;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      letter-spacing: 0.05em;
+    }
+    .success-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    @media print {
+      .success-page { background: white; }
+      .success-card { box-shadow: none; }
+      .success-actions .btn--outline { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="success-page">
+    <div class="success-card">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="check-path" d="M5 13l4 4L19 7"/>
+        </svg>
+      </div>
+      <h1 id="success-title" data-i18n="successTitle">预订成功！</h1>
+      <p class="subtitle" data-i18n="successSubtitle">感谢您的预订，我们期待您的光临</p>
+
+      <div class="success-booking-no">
+        <div class="label" data-i18n="successBookingNo">订单号</div>
+        <div class="value" id="booking-no-display">--</div>
+      </div>
+
+      <div class="success-actions">
+        <a href="/" class="btn btn--primary" data-i18n="successHome">返回首页</a>
+        <button class="btn btn--outline" onclick="window.print()" data-i18n="successPrint">打印确认单</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/i18n.js"></script>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var bookingNo = params.get('booking');
+      var lang = params.get('lang');
+
+      if (bookingNo) {
+        document.getElementById('booking-no-display').textContent = bookingNo;
+      }
+
+      if (!lang) {
+        try { lang = localStorage.getItem('mango_lang'); } catch (e) {}
+      }
+
+      if (lang && I18N[lang]) {
+        var data = I18N[lang];
+        document.documentElement.lang = data.htmlLang;
+        document.querySelectorAll('[data-i18n]').forEach(function (el) {
+          var key = el.getAttribute('data-i18n');
+          if (data[key]) el.textContent = data[key];
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "mango-seaview-hotel",
+  "version": "1.0.0",
+  "description": "芒果海景酒店官网 - Mango Sea View Hotel Official Website",
+  "private": true,
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'Static site - no build step'",
+    "init-db": "netlify functions:invoke init-db --no-identity"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
+    "@netlify/functions": "^3.0.0",
+    "stripe": "^17.7.0"
+  }
+}

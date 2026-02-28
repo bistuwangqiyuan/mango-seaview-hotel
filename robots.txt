@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /.netlify/
+
+Sitemap: https://mango-seaview-hotel.netlify.app/sitemap.xml
